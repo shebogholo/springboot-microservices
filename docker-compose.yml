@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  auth:
+    build:
+      context: ./auth
+      dockerfile: .docker/Dockerfile
+    container_name: backend
+    image: auth:1.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:160:160"
+    depends_on:
+      - db
+    networks:
+      - microservices
+
+  db:
+    image: mariadb:10.8
+    container_name: db
+    restart: always
+    ports:
+      - "127.0.0.1:3309:3309"
+    environment:
+      MARIADB_DATABASE: docker
+      MARIADB_USER: docker
+      MARIADB_PASSWORD: docker
+      MARIADB_ROOT_PASSWORD: docker
+    volumes:
+      - .data:/var/lib/mysql
+      - .docker/config.cnf:/etc/mysql/conf.d/config.cnf
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
