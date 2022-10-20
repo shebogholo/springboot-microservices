@@ -9,7 +9,7 @@ services:
     image: auth:1.0
     restart: unless-stopped
     ports:
-      - "160:160"
+      - "127.0.0.1:160:160"
     depends_on:
       - db
     networks:
