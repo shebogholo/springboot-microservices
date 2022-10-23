@@ -4,6 +4,6 @@ POST https://shebogholo.com/springboot2/chat/api/v1/chat/send
 Content-Type: application/json
 
 {
-  "message": "Hello Waziri, It's me Juma😀😀😀😀😀😀😀😀😀😀😀😀",
+  "message": "Hello Waziri",
   "messageTo": "shebo"
 }

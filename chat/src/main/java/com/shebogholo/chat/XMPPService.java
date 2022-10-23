@@ -43,14 +43,15 @@ public class XMPPService {
 
             // add listeners
             chatManager.addIncomingListener((entityBareJid, message, chat) -> {
-                System.out.println("Received message: " + message.getBody());
                 System.out.println("========================================");
+                System.out.println("Received message: " + message.getBody() +" from: " + entityBareJid.getLocalpart());
+                System.out.println("----------------------------------------");
             });
 
-            chatManager.addOutgoingListener((entityBareJid, message, chat) -> {
-                System.out.println("Sent message: " + message.getBody() + " to " + entityBareJid.getLocalpart());
-                System.out.println("========================================");
-            });
+//            chatManager.addOutgoingListener((entityBareJid, message, chat) -> {
+//                System.out.println("Sent message: " + message.getBody() + " to " + entityBareJid.getLocalpart());
+//                System.out.println("========================================");
+//            });
 
 
             if (connection.isConnected()) {
