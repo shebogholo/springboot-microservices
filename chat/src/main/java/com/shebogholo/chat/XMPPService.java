@@ -87,6 +87,7 @@ public class XMPPService {
     public void registerUser(RegisterRequest registerRequest){
         try {
             Localpart localpart = Localpart.from(registerRequest.username());
+            System.out.println("Registering user: " + localpart);
             accountManager.createAccount(localpart, registerRequest.password());
         } catch (SmackException.NoResponseException | XMPPException.XMPPErrorException | SmackException.NotConnectedException | InterruptedException e) {
             e.printStackTrace();
