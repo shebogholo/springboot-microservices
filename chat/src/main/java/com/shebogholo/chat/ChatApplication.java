@@ -1,5 +1,6 @@
 package com.shebogholo.chat;
 
+import com.shebogholo.chat.utils.Message;
 import lombok.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,14 +18,4 @@ public class ChatApplication {
     public Message index() {
         return Message.builder().message("Chat API is up and running on a Docker!").build();
     }
-
-    @Builder
-    @Setter
-    @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    static class Message {
-        private String message;
-    }
-
 }
