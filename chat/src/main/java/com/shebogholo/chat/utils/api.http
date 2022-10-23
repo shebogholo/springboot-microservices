@@ -1,5 +1,6 @@
 ## Send message
-POST http://localhost:8080/api/v1/chat/send
+##POST http://localhost:8080/api/v1/chat/send
+POST https://shebogholo.com/springboot2/chat/api/v1/chat/send
 Content-Type: application/json
 
 {

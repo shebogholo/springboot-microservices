@@ -53,13 +53,13 @@ public class XMPPService {
             });
 
 
-//            if (connection.isConnected()) {
-//                if (!connection.isAuthenticated()) {
-//                    System.out.println("Authenticating...");
-//                    connection.login("juma", "juma");
-//                    System.out.println("Authenticated!");
-//                }
-//            }
+            if (connection.isConnected()) {
+                if (!connection.isAuthenticated()) {
+                    System.out.println("Authenticating...");
+                    connection.login("juma", "juma");
+                    System.out.println("Authenticated!");
+                }
+            }
 
         }catch (Exception e){
             e.printStackTrace();
