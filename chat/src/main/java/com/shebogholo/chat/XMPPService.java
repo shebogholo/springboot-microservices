@@ -10,6 +10,7 @@ import org.jivesoftware.smack.chat2.Chat;
 import org.jivesoftware.smack.chat2.ChatManager;
 import org.jivesoftware.smack.chat2.IncomingChatMessageListener;
 import org.jivesoftware.smack.chat2.OutgoingChatMessageListener;
+import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smackx.iqregister.AccountManager;
@@ -53,12 +54,6 @@ public class XMPPService {
                 System.out.println("----------------------------------------");
             });
 
-//            chatManager.addOutgoingListener((entityBareJid, message, chat) -> {
-//                System.out.println("Sent message: " + message.getBody() + " to " + entityBareJid.getLocalpart());
-//                System.out.println("========================================");
-//            });
-
-
             if (connection.isConnected()) {
                 if (!connection.isAuthenticated()) {
                     System.out.println("Authenticating...");
@@ -66,6 +61,10 @@ public class XMPPService {
                     System.out.println("Authenticated!");
                 }
             }
+
+            // send presence
+            connection.sendStanza(new Presence(Presence.Type.available));
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -108,6 +107,11 @@ public class XMPPService {
     }
 
     public void logout(){
-        connection.disconnect();
+        try {
+            connection.sendStanza(new Presence(Presence.Type.available));
+            connection.disconnect();
+        } catch (SmackException.NotConnectedException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
