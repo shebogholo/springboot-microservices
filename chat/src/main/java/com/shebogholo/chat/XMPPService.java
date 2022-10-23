@@ -118,4 +118,28 @@ public class XMPPService {
             throw new RuntimeException(e);
         }
     }
+
+    public void connect(){
+        try {
+            // create connection
+            XMPPTCPConnectionConfiguration config = XMPPTCPConnectionConfiguration.builder()
+                    .setXmppDomain("shebogholo.com")
+                    .setHost("shebogholo.com")
+                    .build();
+            connection = new XMPPTCPConnection(config);
+            // connect
+            connection.connect();
+            chatManager = ChatManager.getInstanceFor(connection);
+            accountManager = AccountManager.getInstance(connection);
+
+            // add listeners
+            chatManager.addIncomingListener((entityBareJid, message, chat) -> {
+                System.out.println("========================================");
+                System.out.println("Received message: (" + message.getBody() +") from: " + entityBareJid.getLocalpart());
+                System.out.println("----------------------------------------");
+            });
+        } catch (SmackException | IOException | XMPPException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -35,6 +35,9 @@ public class ChatController {
     // send message
     @PostMapping("/send")
     public void sendMessage(@RequestBody Request request) {
+        if (!xmppService.isConnected()) {
+            xmppService.connect();
+        }
         if (xmppService.isAuthenticated()) {
             xmppService.sendMessage(request);
         }else{
