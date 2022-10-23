@@ -26,6 +26,7 @@ import java.io.IOException;
 @Service
 public class XMPPService {
     private ChatManager chatManager;
+    private AccountManager accountManager;
     private AbstractXMPPConnection connection;
 
     private IncomingChatMessageListener incomingChatMessageListener;
@@ -43,6 +44,7 @@ public class XMPPService {
             // connect
             connection.connect();
             chatManager = ChatManager.getInstanceFor(connection);
+            accountManager = AccountManager.getInstance(connection);
 
             // add listeners
             chatManager.addIncomingListener((entityBareJid, message, chat) -> {
@@ -64,7 +66,6 @@ public class XMPPService {
                     System.out.println("Authenticated!");
                 }
             }
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -85,17 +86,19 @@ public class XMPPService {
 
     public void registerUser(RegisterRequest registerRequest){
         try {
-            AccountManager accountManager = AccountManager.getInstance(connection);
-            accountManager.createAccount(Localpart.fromOrThrowUnchecked(registerRequest.username()), registerRequest.password());
+            Localpart localpart = Localpart.from(registerRequest.username());
+            accountManager.createAccount(localpart, registerRequest.password());
         } catch (SmackException.NoResponseException | XMPPException.XMPPErrorException | SmackException.NotConnectedException | InterruptedException e) {
             e.printStackTrace();
+        } catch (XmppStringprepException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void sendMessage(Request request){
         System.out.println("Sending message to: " + request.messageTo());
         try {
-            Jid jid = JidCreate.from("juma@shebogholo.com");
+            Jid jid = JidCreate.from(request.messageTo()+"@shebogholo.com");
             Chat chat = chatManager.chatWith((EntityBareJid) jid);
             chat.send(request.message());
         } catch (InterruptedException | XmppStringprepException | SmackException.NotConnectedException e) {
