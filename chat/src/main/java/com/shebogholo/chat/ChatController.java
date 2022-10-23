@@ -1,6 +1,7 @@
 package com.shebogholo.chat;
 
 import com.shebogholo.chat.utils.Message;
+import com.shebogholo.chat.utils.RegisterRequest;
 import com.shebogholo.chat.utils.Request;
 import org.jxmpp.jid.*;
 import org.jxmpp.jid.impl.JidCreate;
@@ -24,6 +25,11 @@ public class ChatController {
     @GetMapping("/")
     public Message index() {
         return Message.builder().message("Chat API is working!").build();
+    }
+
+    @PostMapping("/register")
+    public void register(@RequestBody RegisterRequest registerRequest) {
+        xmppService.registerUser(registerRequest);
     }
 
     // send message
