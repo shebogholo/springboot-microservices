@@ -75,6 +75,10 @@ public class XMPPService {
         return connection.isAuthenticated();
     }
 
+    public boolean isConnected(){
+        return connection.isConnected();
+    }
+
     public void login(String username, String password){
         try {
             connection.login(username, password);

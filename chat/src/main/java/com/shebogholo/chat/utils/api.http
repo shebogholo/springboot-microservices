@@ -16,3 +16,6 @@ Content-Type: application/json
   "username": "ally",
   "password": "ally"
 }
+
+### Logout
+GET https://shebogholo.com/springboot2/chat/api/v1/chat/logout

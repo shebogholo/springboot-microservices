@@ -46,6 +46,8 @@ public class ChatController {
     // logout
     @GetMapping("/logout")
     public void logout() {
-        xmppService.logout();
+        if (xmppService.isConnected()) {
+            xmppService.logout();
+        }
     }
 }
