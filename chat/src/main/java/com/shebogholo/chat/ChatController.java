@@ -21,7 +21,7 @@ public class ChatController {
         this.xmppService = xmppService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public Message index() {
         return Message.builder().message("Chat API is working!").build();
     }
