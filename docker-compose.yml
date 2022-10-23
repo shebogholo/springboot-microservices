@@ -14,6 +14,7 @@ services:
       - db
     networks:
       - microservices
+    
   chat:
     build:
       context: ./chat
