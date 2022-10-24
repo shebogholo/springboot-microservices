@@ -100,7 +100,7 @@ public class XMPPService {
     }
 
     public void sendMessage(Request request){
-        System.out.println("Sending message to: " + request.messageTo());
+//        System.out.println("Sending message to: " + request.messageTo());
         try {
             Jid jid = JidCreate.from(request.messageTo()+"@shebogholo.com");
             Chat chat = chatManager.chatWith((EntityBareJid) jid);
